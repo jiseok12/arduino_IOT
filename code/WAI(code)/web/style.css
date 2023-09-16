@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    display: block;
+    max-width: 650px;
+    min-width: 200px;
+    margin: auto;
+    position: relative;
+    font-family: arial;
+    font-style: normal;
+    font-size: 12px;
+    color: #ddd;
+    line-height: 16px;
+    overflow-x: hidden;
+}
+
+#head-menu {
+    table-layout: fixed;
+    display: table;
+    position: fixed;
+    bottom: 0;
+    color: white;
+    background: #32373c;
+    border-bottom: 1px solid #e2e2e2;
+    left: 0;
+    /* Left edge at left for now */
+    right: 0;
+    /* Right edge at right for now, so full width */
+    width: 100%;
+    /* Give it the desired width */
+    margin: auto;
+    /* Center it */
+    /* Make it fit window if under 500px */
+    z-index: 10000;
+    /* Whatever needed to force to front (1 might do) */
+}
+
+#head-menu div {
+    color: #FFF;
+    display: block;
+    padding: 10px;
+}
+
+#head-menu div {
+    vertical-align: middle;
+    display: table-cell;
+    text-align: center;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    font-size: 2.2em;
+    font-weight: 550;
+    color: black;
+}
+
+.material-symbols-outlined {
+    color: black;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
+.tab {
+    position: relative;
+    width: 95%;
+    height: 15%;
+    background-color: lawngreen;
+    border-radius: 20px;
+    margin: 6% auto;
+}
+.yu{
+    margin-top: 18%;
+}
+
+#me2,
+#me3,
+#me4,
+#me5,
+#me6,
+#me7 {
+    font-size: 1.2rem;
+    position: absolute;
+    left: 6%;
+    top: 50%;
+    transform: translate(0%,-150%);
+    color: black;
+}
+h4{
+    font-size: 0.85rem;
+    position: absolute;
+    left: 12.5%;
+    top: 55%;
+    color: black;
+}
+
+button.ON3 {
+    width: 17.5%;
+    height: 40%;
+    border-radius: 10px;
+    border: none;
+    background-color: aliceblue;
+    position: absolute;
+    left: 35%;
+    top: 30px;
+    font-size: 1em;
+}
+
+button.OFF3 {
+    width: 17.5%;
+    height: 40%;
+    border-radius: 10px;
+    border: none;
+    background-color: aliceblue;
+    position: absolute;
+    left: 60%;
+    top: 30px;
+    font-size: 1em;
+}
+
+.ko {
+    font-size: 2.2rem;
+    position: absolute;
+    left: 84%;
+    top: 30%;
+}
+
+.changname1,
+.changname2,
+.changname3,
+.changname4,
+.changname5,
+.changname6,
+.changname7 {
+    display: none;
+    width: 85%;
+    height: 45%;
+    border-color: aqua;
+    border-radius: 15px;
+    background-color: lightgreen;
+    position: absolute;
+    left: 7.5%;
+    top: 15%;
+}
+
+button.modal {
+    position: absolute;
+    left: 7.5%;
+    top: 15%;
+}
+
+input.modal1 {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    border: 0;
+    border-radius: 15px;
+    background-color: green;
+    font-size: 1.5em;
+}

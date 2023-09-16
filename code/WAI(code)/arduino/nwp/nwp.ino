@@ -7,11 +7,22 @@ const int sensorIn = 34;
 int mVperAmp = 66; // use 185 for 5A Module and 100 for 20A Module
  int ampcount=0;
 int autostart=0;
+
+float getVPP2();
+const int sensorIn2 = 35;
+int mVperAmp2 = 66; // use 185 for 5A Module and 100 for 20A Module
+ int ampcount2=0;
+int autostart2=0;
+
 double sum=0;
 int aram=0;
 double Voltage = 0;
 double VRMS = 0;
 double AmpsRMS = 0;
+
+double Voltage2 = 0;
+double VRMS2 = 0;
+double AmpsRMS2 = 0;
 
 int count=0;
 int sendpin=0;
@@ -20,8 +31,8 @@ int repin2=4;
 int repin3=5;
 int repin4=18;
 
-const char* ssid     = "iptime1";
-const char* password = "50255025";
+const char* ssid     = "jiseok";
+const char* password = "12345678";
 
 const char* serverName = "http://leejiseok.iptime.org:50/input.php";
 const String endpoint = "http://leejiseok.iptime.org:50/open.php";
@@ -68,6 +79,10 @@ void loop() {
   Voltage = getVPP();
  VRMS = (Voltage/2.0) *0.707;
  AmpsRMS = (VRMS * 1000)/mVperAmp;
+
+  Voltage2 = getVPP2();
+ VRMS2 = (Voltage2/2.0) *0.707;
+ AmpsRMS2 = (VRMS2 * 1000)/mVperAmp2;
  //Serial.print(AmpsRMS);
  //Serial.println(" Amps RMS");
   //Check WiFi connection status
@@ -112,7 +127,13 @@ void loop() {
   Serial.println("현재 반응이 없습니다");
   aram=1;
  }
- 
+
+ if(AmpsRMS<=4.2){
+  AmpsRMS=0;
+ }
+ if(AmpsRMS2<=4.2){
+  AmpsRMS2=0;
+ }
   if(WiFi.status()== WL_CONNECTED){
     WiFiClient client;
     HTTPClient http;
@@ -122,11 +143,11 @@ void loop() {
     
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
     if(sendpin!=1){
-    httpRequestData = "apikey=" + String((AmpsRMS*220.0)/100.0)+"&aram="+String(aram);
+    httpRequestData = "apikey=" + String((AmpsRMS*220.0)/100.0)+"&apikey2=" + String((AmpsRMS2*220.0)/100.0)+"&aram="+String(aram);
     }
     else{
       sendpin=0;
-      httpRequestData = "apikey=" + String((AmpsRMS*220.0)/100.0)+"&LED="+String(sendpin)+"&aram="+String(aram);
+      httpRequestData = "apikey=" + String((AmpsRMS*220.0)/100.0)+"&apikey2=" + String((AmpsRMS2*220.0)/100.0)+"&LED="+String(sendpin)+"&aram="+String(aram);
     }
     //Serial.print("httpRequestData: ");
     //Serial.println(httpRequestData);
@@ -152,6 +173,37 @@ void loop() {
 }
 
 float getVPP()
+{
+  float result;
+  
+  int readValue;             //value read from the sensor
+  int maxValue = 0;          // store max value here
+  int minValue = 4096;          // store min value here
+  
+   uint32_t start_time = millis();
+   while((millis()-start_time) < 1000) // 1초동안 값을 모아서 AC 전류의 최고점, 최저점을 찾아 평균치를 구함
+   {
+       readValue = analogRead(sensorIn);
+       // see if you have a new maxValue
+       if (readValue > maxValue) 
+       {
+           /*record the maximum sensor value*/
+           maxValue = readValue;
+       }
+       if (readValue < minValue) 
+       {
+           /*record the maximum sensor value*/
+           minValue = readValue;
+       }
+   }
+   
+   // Subtract min from max
+   result = ((maxValue - minValue) * 5.0)/1024.0;        // 5V 분해능, 아날로그핀의 분해능 1024
+      
+   return result;
+ }
+
+ float getVPP2()
 {
   float result;
   
